@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 <head>
-    <link rel="stylesheet" href="{% static  'review/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'review/css/index.css' %}">
     <script src="{% static 'review/js/index.js' %}"></script> 
     <script src="https://use.fontawesome.com/b466559c17.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -16,8 +16,10 @@
       {%csrf_token%}
   <section>
       {% for movie in movies %}
+      
       <input class="animate" type="radio" name="question" id="{{movie.id}}" value={{movie.id}}>
       <label class="animate" for="{{movie.id}}">{{movie.title}}</label>
+      
       <div class="response animate"><p class="inp">Drop a Review:&emsp; <input type="textarea " name='review' id='review'>
         <input class="form-group" type="submit" value="Submit Review">
       </p><p class="inp">

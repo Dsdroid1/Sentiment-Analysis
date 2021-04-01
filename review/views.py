@@ -16,7 +16,7 @@ def classify_review(review_stmt):#returns 1 for positive,0 for negative
     english_stops = set(stopwords.words('english'))
     max_length=130#From train data
     #Loading stored model
-    loaded_model = load_model('/home/dsdroid/Desktop/6th Sem/SWLAB/Assignment 4/Sentiment-Analysis/review_classifier/review/sentiment.h5')
+    loaded_model = load_model('/home/kartik/APIsoftlab/Data Analysis/Sentiment-Analysis/review/sentiment.h5')
     # Pre-process input
     regex = re.compile(r'[^a-zA-Z\s]')
     review_stmt = regex.sub('', review_stmt)
@@ -47,7 +47,7 @@ def review_process(request):
         english_stops = set(stopwords.words('english'))
         max_length=130#From train data
         #Loading stored model
-        loaded_model = load_model('/home/dsdroid/Desktop/6th Sem/SWLAB/Assignment 4/Sentiment-Analysis/review_classifier/review/sentiment.h5')
+        loaded_model = load_model('/home/kartik/APIsoftlab/Data Analysis/Sentiment-Analysis/review/sentiment.h5')
         # Pre-process input
         regex = re.compile(r'[^a-zA-Z\s]')
         review_stmt = regex.sub('', review_stmt)
