@@ -4,6 +4,7 @@
         <title>Movie data</title>
     </head>
     <body>
+        {% for movie in movies%}
         Movie title is
         {{movie.title}}
         <img src='{{movie.poster.url}}' height=300px width=300px alt='poster'>
@@ -11,9 +12,10 @@
         Negatives:{{movie.num_negative}}
         <form method='POST' action='/review/movielist/'>
             {% csrf_token%}
-            <input type='number' name='id' id='id' value="{{movie.id}}">
+            <input type='number' name='mid' id='mid' value="{{movie.id}}" hidden>
             <input type='textarea' name='review' id='review'>
             <input type='submit' value='Submit'>
         </form>
+        {% endfor%}
     </body>
 </html>

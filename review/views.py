@@ -78,8 +78,8 @@ def updateReviews(request):
     if request.method=='POST':
         #Get the movie id
         print('Req received')
-        m_id = request.POST.get('id')
-        print(m_id)
+        m_id = request.POST.get('mid')
+        print('Client sent movie id:'+str(m_id))
         review_stmt = request.POST.get('review')
         isPositive = classify_review(review_stmt)
         Movie_object = Movie.objects.get(id=m_id)
@@ -88,13 +88,16 @@ def updateReviews(request):
         else:
             Movie_object.num_negative+=1
         Movie_object.save()
-        return HttpResponse('Recorded')
+        movies=Movie.objects.all()
+        return render(request,'movie.html',{'movies':movies})
+        #return HttpResponse('Recorded')
 
     else:
-        movie=Movie.objects.get(id=2)
-        print(movie.id)
-        print(movie.poster)
-        return render(request,'movie.html',{'movie':movie})
+        #movie=Movie.objects.get(id=2)
+        movies=Movie.objects.all()
+        #print(movie.id)
+        #print(movie.poster)
+        return render(request,'movie.html',{'movies':movies})
         #return HttpResponse('Here will be kartik\'s page')
 
 def movieData(request):
