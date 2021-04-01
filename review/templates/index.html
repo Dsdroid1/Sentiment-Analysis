@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script> 
+    <script src="https://use.fontawesome.com/b466559c17.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    </head>
+<body>
+<div class="container">
+    <div class="faqs-container">
+      <h2>FAQ</h2>
+    </div>
+    <!-- <form> -->
+  <section>
+    {% for movie in movies%}
+    <!-- <input class="animate" type="radio" name="question" id="{{movie.id}}"/> -->
+    
+    <form method='POST' action='/review/movielist/'>
+      {% csrf_token%}
+      
+      <img src='{{movie.poster.url}}' height=300px width=300px alt='poster'>
+      <label class="animate" for="{{movie.id}}">{{movie.title}}</label>
+      <input type='number' name='mid' id='mid' value="{{movie.id}}" hidden>
+      <div class="response animate"><p class="inp">Drop a Review:&emsp; <input type="textarea" name='review' id='review'>
+      <input class="form-group" type="submit" value="Submit Review"></p>
+      <p class="inp"><i style ="font-size: 2rem;"class="bi-hand-thumbs-up like_dislike"></i>{{movie.num_positive}}
+      <i style ="font-size: 2rem;"class="bi-hand-thumbs-down like_dislike"></i>{{movie.num_negative}}
+    </p></div>
+    </form>
+    {% endfor %}
+     
+      <!-- <input class="animate" type="radio" name="question" id="q4"/>
+      <label class="animate" for="q4">How much time a CA has to spend?</label>
+      <p class="response animate">Sincerity towards the work is expected.</p>
+
+     
+
+      <input class="animate" type="radio" name="question" id="q5"/>
+      <label class="animate" for="q5">Would we have to work outside the college campus or prepare
+        promotional materials?</label>
+      <p class="response animate">No. Your work is to help us extend our reach only on your college campus. Also,
+        promotional materials will be prepared by us and shared with you through WhatsApp
+        or Facebook groups that you will be a part of.</p>
+
+        <input class="animate" type="radio" name="question" id="q6"/>
+        <label class="animate" for="q6">What to do if i have any other queries?</label>
+        <p class="response animate">You can drop a mail to ca@axisvnit.org </p> -->
+  </section>
+  <!-- </form> -->
+</div>
+</body>
+</html>
