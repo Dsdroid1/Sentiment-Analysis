@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>Review Classification</title>
+    </head>
+    <body>
+        
+        <form action='/review/review_it/' method='post'>
+            {% csrf_token %}
+            <label for='review'>Enter your review</label>
+            <input type='textarea' name='review' id='review' value=''>
+            <input type='submit' value='Classify'>
+        </form>
+    </body>
+</html>
