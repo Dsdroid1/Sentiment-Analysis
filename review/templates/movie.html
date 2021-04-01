@@ -1,0 +1,19 @@
+{% load static%}
+<html>
+    <head>
+        <title>Movie data</title>
+    </head>
+    <body>
+        Movie title is
+        {{movie.title}}
+        <img src='{{movie.poster.url}}' height=300px width=300px alt='poster'>
+        Positives:{{movie.num_positive}}
+        Negatives:{{movie.num_negative}}
+        <form method='POST' action='/review/movielist/'>
+            {% csrf_token%}
+            <input type='number' name='id' id='id' value="{{movie.id}}">
+            <input type='textarea' name='review' id='review'>
+            <input type='submit' value='Submit'>
+        </form>
+    </body>
+</html>
