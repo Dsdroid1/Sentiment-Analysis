@@ -21,6 +21,7 @@ $(function(){
     setHeight();
 });
 
+
 // function slideFaq()
 // {
 //     document.getElementById('faqs-ans-1').style.display="block";

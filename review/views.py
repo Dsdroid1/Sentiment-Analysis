@@ -6,6 +6,16 @@ from tensorflow.keras.models import load_model   # load saved model
 from django.http import HttpResponse
 import re
 from .models import Movie
+import pickle
+from keras_preprocessing.text import tokenizer_from_json
+import json
+
+
+
+
+
+
+
 
 # Create your views here.
 def form(request):
@@ -20,18 +30,18 @@ def classify_review(review_stmt):#returns 1 for positive,0 for negative
     # Pre-process input
     regex = re.compile(r'[^a-zA-Z\s]')
     review_stmt = regex.sub('', review_stmt)
-    #print('Cleaned: ', review_stmt)
+    print('Cleaned: ', review_stmt)
 
     words = review_stmt.split(' ')
     filtered = [w for w in words if w not in english_stops]
     filtered = ' '.join(filtered)
     filtered = [filtered.lower()]
 
-    #print('Filtered: ', filtered)
+    # print('Filtered: ', filtered)
     token = Tokenizer(lower=False)
     tokenize_words = token.texts_to_sequences(filtered)
     tokenize_words = pad_sequences(tokenize_words, maxlen=max_length, padding='post', truncating='post')
-
+    # print(tokenize_words)
     result = loaded_model.predict(tokenize_words)
     #print(result)
     if result >= 0.5:
@@ -59,10 +69,13 @@ def review_process(request):
         filtered = [filtered.lower()]
 
         print('Filtered: ', filtered)
-        token = Tokenizer(lower=False)
+        with open('/home/kartik/APIsoftlab/Data Analysis/Sentiment-Analysis/review/data.txt') as json_file:
+            token = json.load(json_file)
+        token=tokenizer_from_json(token)
+        print("TOKEN:" ,token)
         tokenize_words = token.texts_to_sequences(filtered)
         tokenize_words = pad_sequences(tokenize_words, maxlen=max_length, padding='post', truncating='post')
-
+        print('tokenize words',tokenize_words)
         result = loaded_model.predict(tokenize_words)
         print(result)
         if result >= 0.5:
@@ -81,6 +94,7 @@ def updateReviews(request):
         m_id = request.POST.get('question')
         print('Client sent movie id:'+str(m_id))
         review_stmt = request.POST.get('review')
+        print("review: ",review_stmt)
         isPositive = classify_review(review_stmt)
         Movie_object = Movie.objects.get(id=m_id)
         if isPositive:

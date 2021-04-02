@@ -17,7 +17,7 @@
   <section>
       {% for movie in movies %}
       
-      <input class="animate" type="radio" name="question" id="{{movie.id}}" value={{movie.id}}>
+      <input class="animate" type="radio" name="question" id="{{movie.id}}" value="{{movie.id}}">
       <label class="animate" for="{{movie.id}}">{{movie.title}}</label>
       
       <div class="response animate"><p class="inp">Drop a Review:&emsp; <input type="textarea " name='review' id='review'>
