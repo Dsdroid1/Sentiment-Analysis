@@ -20,11 +20,17 @@
       <input class="animate" type="radio" name="question" id="{{movie.id}}" value="{{movie.id}}">
       <label class="animate" for="{{movie.id}}">{{movie.title}}</label>
       
-      <div class="response animate"><p class="inp">Drop a Review:&emsp; <input type="textarea " name='review' id='review'>
+      <div class="response animate">
+        <p class="inp">Drop a Review:&emsp;
+           <input type="textarea " name='review' id='review'>
         <input class="form-group" type="submit" value="Submit Review">
-      </p><p class="inp">
-        <i style ="font-size: 2rem;"class="bi-hand-thumbs-up like_dislike"></i>{{movie.num_positive}}
-        <i style ="font-size: 2rem;"class="bi-hand-thumbs-down like_dislike"></i>{{movie.num_negative}}</p></div>
+      </p><p class="inp" >
+          <img src='{{movie.poster.url}}' height=300px width=300px alt='poster'><br/>
+        <span><i style ="font-size: 2rem;"class="bi-hand-thumbs-up like_dislike"></i>{{movie.num_positive}}</span>
+        <br/>,
+        <span><i style ="font-size: 2rem;"class="bi-hand-thumbs-down like_dislike"></i>{{movie.num_negative}}</span>
+      </p>
+    </div>
       {% endfor %}
       
   </section>
