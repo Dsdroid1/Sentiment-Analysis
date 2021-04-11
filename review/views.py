@@ -26,7 +26,7 @@ def classify_review(review_stmt):#returns 1 for positive,0 for negative
     english_stops = set(stopwords.words('english'))
     max_length=130#From train data
     #Loading stored model
-    loaded_model = load_model('/home/kartik/APIsoftlab/Data Analysis/Sentiment-Analysis/review/sentiment.h5')
+    loaded_model = load_model('/home/dsdroid/Desktop/6th Sem/SWLAB/Assignment 4/Sentiment-Analysis/review_classifier/review/sentiment.h5')
     # Pre-process input
     regex = re.compile(r'[^a-zA-Z\s]')
     review_stmt = regex.sub('', review_stmt)
@@ -38,10 +38,13 @@ def classify_review(review_stmt):#returns 1 for positive,0 for negative
     filtered = [filtered.lower()]
 
     # print('Filtered: ', filtered)
-    token = Tokenizer(lower=False)
+    #token = Tokenizer(lower=False)
+    with open('/home/dsdroid/Desktop/6th Sem/SWLAB/Assignment 4/Sentiment-Analysis/review_classifier/review/data.txt') as json_file:
+        token = json.load(json_file)
+    token=tokenizer_from_json(token)
     tokenize_words = token.texts_to_sequences(filtered)
     tokenize_words = pad_sequences(tokenize_words, maxlen=max_length, padding='post', truncating='post')
-    # print(tokenize_words)
+    print(tokenize_words)
     result = loaded_model.predict(tokenize_words)
     #print(result)
     if result >= 0.5:
@@ -57,7 +60,7 @@ def review_process(request):
         english_stops = set(stopwords.words('english'))
         max_length=130#From train data
         #Loading stored model
-        loaded_model = load_model('/home/kartik/APIsoftlab/Data Analysis/Sentiment-Analysis/review/sentiment.h5')
+        loaded_model = load_model('/home/dsdroid/Desktop/6th Sem/SWLAB/Assignment 4/Sentiment-Analysis/review_classifier/review/sentiment.h5')
         # Pre-process input
         regex = re.compile(r'[^a-zA-Z\s]')
         review_stmt = regex.sub('', review_stmt)
@@ -69,7 +72,7 @@ def review_process(request):
         filtered = [filtered.lower()]
 
         print('Filtered: ', filtered)
-        with open('/home/kartik/APIsoftlab/Data Analysis/Sentiment-Analysis/review/data.txt') as json_file:
+        with open('/home/dsdroid/Desktop/6th Sem/SWLAB/Assignment 4/Sentiment-Analysis/review_classifier/review/data.txt') as json_file:
             token = json.load(json_file)
         token=tokenizer_from_json(token)
         print("TOKEN:" ,token)
@@ -77,6 +80,7 @@ def review_process(request):
         tokenize_words = pad_sequences(tokenize_words, maxlen=max_length, padding='post', truncating='post')
         print('tokenize words',tokenize_words)
         result = loaded_model.predict(tokenize_words)
+        #result=1
         print(result)
         if result >= 0.5:
             print('positive')
